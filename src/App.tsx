@@ -7,7 +7,7 @@ import './index.css';
 
 function App() {
 	const [formData, setFormData] = useState<FormData>({ numberOfQuestions: 1, difficulty: 'easy' });
-	const [showQuizz, setShowQuizz] = useState(false);
+	const [showQuizz, setShowQuizz] = useState<boolean>(false);
 
 	function handleChange(e: ChangeEvent<HTMLInputElement>) {
 		let { value, name } = e.target;

@@ -7,5 +7,4 @@ export interface Questions {
 	correct_answer: string;
 	incorrect_answers: Array<string>;
 	validation: boolean;
-	children: JSX.Element;
 }

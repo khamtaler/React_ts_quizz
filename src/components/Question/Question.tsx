@@ -1,6 +1,11 @@
 import { Questions } from '../../models/Questions';
+import { ReactNode } from 'react';
 
-export default function Question({ id, question, children }: Questions) {
+interface Props extends Pick<Questions, 'id' | 'question'> {
+	children: ReactNode;
+}
+
+export default function Question({ id, question, children }: Props) {
 	return (
 		<section id={id}>
 			<div>

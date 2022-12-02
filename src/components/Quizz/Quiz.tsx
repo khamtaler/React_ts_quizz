@@ -1,46 +1,44 @@
 import { useState, useEffect } from 'react';
 import { FormData } from '../../models/FormData';
 import { nanoid } from 'nanoid';
+import Question from '../Question/Question';
+import AnswerButton from '../AnswerButton/AnswerButton';
+import { Questions } from '../../models/Questions';
+import { MappedAnswer } from '../../models/MappedAnswers';
+import { DataArray, Data } from '../../models/DataArray';
 
 interface Props extends FormData {
 	setShowQuizz: React.Dispatch<React.SetStateAction<boolean>>;
 }
-interface question {
-	correct_answer: string;
-	incorrect_answers: Array<string>;
-}
-interface mappedAnswer {
-	answer: string;
-	isCorrect: boolean;
-	isChecked: boolean;
-}
-interface mappedAnswers extends Array<mappedAnswer> {}
 
 export default function Quiz({ numberOfQuestions, difficulty, setShowQuizz }: Props) {
-	const [data, setData] = useState([]);
-	const [remake, setRemake] = useState(false);
+	const [data, setData] = useState<DataArray>([]);
+	const [remake, setRemake] = useState<boolean>(false);
+	const [validation, setValidation] = useState<boolean>(false);
 
-	const mapAnswers = (item: question) => {
+	const mapAnswers = (item: Questions) => {
 		const { correct_answer, incorrect_answers } = item;
-		const correct_answers = Array.isArray(correct_answer) ? correct_answer : [correct_answer];
-		const mappedCorrectAnswers = correct_answers.map((item) => ({
-			answer: item,
+		const correct_answers: Array<string> = Array.isArray(correct_answer)
+			? correct_answer
+			: [correct_answer];
+		const mappedCorrectAnswers = correct_answers.map((answer) => ({
+			answer: answer,
 			isCorrect: true,
 			isChecked: false,
 		}));
-		const mappedIncorrectAnswers = incorrect_answers.map((item) => ({
-			answer: item,
+		const mappedIncorrectAnswers = incorrect_answers.map((answer) => ({
+			answer: answer,
 			isCorrect: false,
 			isChecked: false,
 		}));
 		return [...mappedCorrectAnswers, ...mappedIncorrectAnswers];
 	};
 
-	function shuffleArray(array: mappedAnswers) {
+	function shuffleArray<T>(array: Array<T>): Array<T> {
 		const newArray = [...array];
-		for (var i = newArray.length - 1; i > 0; i--) {
-			var j = Math.floor(Math.random() * (i + 1));
-			var temp = newArray[i];
+		for (let i = newArray.length - 1; i > 0; i--) {
+			let j = Math.floor(Math.random() * (i + 1));
+			const temp = newArray[i];
 			newArray[i] = newArray[j];
 			newArray[j] = temp;
 		}
@@ -54,7 +52,7 @@ export default function Quiz({ numberOfQuestions, difficulty, setShowQuizz }: Pr
 
 			.then((data) =>
 				setData(
-					data.results.map((item: question) => {
+					data.results.map((item: Questions) => {
 						const { correct_answer, incorrect_answers, ...rest } = item;
 						const answers = shuffleArray(mapAnswers(item));
 						return { ...rest, id: nanoid(), answers, isPoint: null };
@@ -65,6 +63,49 @@ export default function Quiz({ numberOfQuestions, difficulty, setShowQuizz }: Pr
 				console.log(err);
 			});
 	}, [remake]);
-	console.log(data);
-	return <div>{numberOfQuestions}</div>;
+
+	const questions = data.map(({ question, id, answers }: Data) => {
+		return (
+			<Question key={id} question={question} id={id}>
+				<>
+					{answers.map(({ answer, isChecked, isCorrect }: MappedAnswer) => {
+						return (
+							<AnswerButton
+								key={answer}
+								answer={answer}
+								isChecked={isChecked}
+								chooseAnswer={(answerId) => chooseAnswer(id, answerId)}
+								id={answer}
+								validation={validation}
+								isCorrect={isCorrect}
+							/>
+						);
+					})}
+				</>
+			</Question>
+		);
+	});
+
+	function chooseAnswer(questionId: string, answerId: string) {
+		setData((questions) => {
+			return questions.map((question) => {
+				if (questionId === question.id) {
+					return {
+						...question,
+						answers: question.answers.map((answer) => {
+							if (answer.answer === answerId) {
+								return { ...answer, isChecked: !answer.isChecked };
+							} else if (answer.answer !== answerId) {
+								return { ...answer, isChecked: false };
+							}
+							return answer;
+						}),
+					};
+				}
+				return question;
+			});
+		});
+	}
+
+	return <div>{questions}</div>;
 }

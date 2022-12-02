@@ -6,4 +6,5 @@ export interface MappedAnswer {
 	key: string;
 	validation: boolean;
 }
+
 export interface MappedAnswers extends Array<MappedAnswer> {}

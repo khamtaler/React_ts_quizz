@@ -1,6 +1,6 @@
 import React from 'react';
 import { MappedAnswer } from '../../models/MappedAnswers';
-import styles from '../../styles/AnswerButton.module.css';
+import styles from '../AnswerButton/AnswerButton.module.css';
 
 interface Props extends MappedAnswer {
 	chooseAnswer: React.Dispatch<string>;
