@@ -1,0 +1,49 @@
+.Navigation {
+	position: fixed;
+	z-index: 2;
+	top: 50px;
+	display: block;
+}
+.Navigation a {
+	text-decoration: none;
+	padding: 10px;
+	margin: 0px 5px;
+	font-size: 20px;
+	color: #fada5e;
+}
+.Navigation a:last-child {
+	color: #77bbff;
+}
+.Navigation___correct svg {
+	color: rgb(0, 179, 0);
+	box-shadow: 0 0 20px 10px rgb(0, 179, 0);
+}
+.Navigation___inCorrect svg {
+	color: rgb(245, 52, 52);
+	box-shadow: 0 0 20px 10px rgb(245, 52, 52);
+}
+
+.NavigationButtons {
+	position: fixed;
+	bottom: 50px;
+}
+
+.NavigationButtons___top {
+	margin-right: 20px;
+	background-color: #fff;
+}
+
+.NavigationButtons___top,
+.NavigationButtons___bottom {
+	box-shadow: 0px 0px 15px 0px #fff;
+	border: none;
+}
+
+.NavigationButtons___top:hover,
+.NavigationButtons___bottom:hover {
+	cursor: pointer;
+	background-color: rgba(222, 222, 222, 0);
+	color: #fff;
+	transition: all 0.4s ease-in-out;
+	box-shadow: none;
+}

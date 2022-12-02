@@ -1,0 +1,62 @@
+.Question {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	position: relative;
+	z-index: 0;
+	padding: 10px;
+}
+.Question:nth-child(odd) {
+	background: rgb(31, 11, 60);
+	background: linear-gradient(120deg, rgba(31, 11, 60, 1) 0%, rgba(151, 53, 231, 1) 100%);
+}
+.Question:nth-child(even) {
+	background: rgb(31, 11, 60);
+	background: linear-gradient(-45deg, rgba(31, 11, 60, 1) 0%, rgba(151, 53, 231, 1) 100%);
+}
+
+.Question_container {
+	background: rgba(31, 11, 60, 1);
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	max-width: 800px;
+	max-height: 600px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 50px;
+	border-radius: 30px;
+}
+.Question_container:last-child {
+	background: rgb(151, 53, 231);
+	background: radial-gradient(circle, rgba(151, 53, 231, 1) 0%, rgba(32, 22, 60, 1) 100%);
+}
+.Question_container h2 {
+	color: #fff;
+}
+.Question_container div {
+	margin: 20px auto;
+	max-width: 500px;
+	width: 100%;
+}
+
+.Question_answers {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 600px) {
+	.Question_container {
+		padding: 10px;
+	}
+	.Question h2 {
+		font-size: 18px;
+	}
+}

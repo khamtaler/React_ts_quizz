@@ -1,0 +1,76 @@
+.Questions {
+	box-sizing: border-box;
+}
+
+.Questions_main {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+}
+
+.Questions_container {
+	width: 100%;
+}
+
+.Questions_finalStep {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background: rgb(151, 53, 231);
+	background: radial-gradient(circle, rgba(151, 53, 231, 1) 0%, rgba(32, 22, 60, 1) 100%);
+	text-align: center;
+}
+
+.Questions_finalStep button {
+	margin: 10px;
+	cursor: pointer;
+}
+
+.Questions_checkContainer h2 {
+	margin-bottom: 30px;
+}
+
+.Questions_finalStep___check {
+	background-color: rgb(75, 255, 195);
+	width: 245px;
+}
+.Questions_finalStep___replay {
+	background: #77bbff;
+	width: 245px;
+}
+.Questions_finalStep___reset {
+	background: rgb(231, 167, 178);
+	width: 245px;
+}
+
+.Questions_finalStep___check:hover {
+	background-color: rgb(47, 199, 148);
+	transform: translateY(-5px);
+	transition-duration: 300ms;
+	box-shadow: 0 15px 10px rgb(47 199 148);
+}
+.Questions_finalStep___replay:hover {
+	background: #4991da;
+	transform: translateY(-5px);
+	transition-duration: 300ms;
+	box-shadow: 0 15px 10px #4991da;
+}
+.Questions_finalStep___reset:hover {
+	background: rgb(230, 141, 156);
+	transform: translateY(-5px);
+	transition-duration: 300ms;
+	box-shadow: 0 15px 10px rgb(230, 141, 156);
+}
+.Questions_score {
+	color: #fff;
+	margin-bottom: 30px;
+	font-size: 40px;
+}
+.Questions_loading {
+	color: #fff;
+	font-size: 60px;
+}
