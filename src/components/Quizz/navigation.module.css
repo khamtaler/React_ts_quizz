@@ -23,27 +23,73 @@
 	box-shadow: 0 0 20px 10px rgb(245, 52, 52);
 }
 
-.NavigationButtons {
-	position: fixed;
-	bottom: 50px;
-}
+@media only screen and (min-width: 1201px) {
+	.NavigationButtonsMobile {
+		display: none !important;
+	}
+	.NavigationButtonsDesktop {
+		position: fixed;
+		right: 50px;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
+		transition: 1000ms ease-in-out;
+	}
+	.NavigationButtonsDesktop .NavigationButtons___top,
+	.NavigationButtonsDesktop .NavigationButtons___bottom {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 150px;
+		height: 100px;
+		justify-content: center;
+	}
+	.NavigationButtonsDesktop .NavigationButtons___top svg {
+		margin-bottom: 10px;
+	}
 
-.NavigationButtons___top {
-	margin-right: 20px;
-	background-color: #fff;
+	.NavigationButtonsDesktop .NavigationButtons___bottom svg {
+		margin-top: 10px;
+	}
+	.NavigationButtonsDesktop .NavigationButtons___top:hover {
+		transform: translateY(-10px);
+		transition: 300ms ease-in-out;
+		box-shadow: 0px 0px 15px 0px #fff;
+	}
+	.NavigationButtonsDesktop .NavigationButtons___bottom:hover {
+		transform: translateY(10px);
+		transition: 300ms ease-in-out;
+		box-shadow: 0px 0px 15px 0px #fff;
+	}
 }
+@media only screen and (max-width: 1200px) {
+	.NavigationButtonsDesktop {
+		display: none !important;
+	}
+	.NavigationButtonsMobile {
+		position: fixed;
+		bottom: 50px;
+	}
 
-.NavigationButtons___top,
-.NavigationButtons___bottom {
-	box-shadow: 0px 0px 15px 0px #fff;
-	border: none;
-}
+	.NavigationButtonsMobile .NavigationButtons___top {
+		margin-right: 20px;
+		background-color: #fff;
+	}
 
-.NavigationButtons___top:hover,
-.NavigationButtons___bottom:hover {
-	cursor: pointer;
-	background-color: rgba(222, 222, 222, 0);
-	color: #fff;
-	transition: all 0.4s ease-in-out;
-	box-shadow: none;
+	.NavigationButtonsMobile .NavigationButtons___top,
+	.NavigationButtonsMobile .NavigationButtons___bottom {
+		box-shadow: 0px 0px 15px 0px #fff;
+		border: none;
+	}
+
+	.NavigationButtonsMobile .NavigationButtons___top:hover,
+	.NavigationButtonsMobile .NavigationButtons___bottom:hover {
+		cursor: pointer;
+		background-color: rgba(222, 222, 222, 0);
+		color: #fff;
+		transition: all 0.4s ease-in-out;
+		box-shadow: none;
+	}
 }

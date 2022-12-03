@@ -16,6 +16,8 @@ import {
 	faCheck,
 	faRotateLeft,
 	faGear,
+	faArrowDown,
+	faArrowUp,
 } from '@fortawesome/free-solid-svg-icons';
 
 interface Props extends FormData {
@@ -257,7 +259,25 @@ export default function Quiz({ numberOfQuestions, difficulty, setShowQuizz }: Pr
 					</div>
 				</div>
 			</div>
-			<div className={navStyles.NavigationButtons}>
+			<div className={navStyles.NavigationButtonsDesktop}>
+				{currentSection !== 0 && (
+					<button
+						className={`${navStyles.NavigationButtons___top} button`}
+						onClick={() => setCurrentSection((prev) => prev - 1)}
+					>
+						<FontAwesomeIcon icon={faArrowUp} /> previous
+					</button>
+				)}
+				{currentSection !== sections.length - 1 && (
+					<button
+						className={`${navStyles.NavigationButtons___bottom} button`}
+						onClick={() => setCurrentSection((prev) => prev + 1)}
+					>
+						next <FontAwesomeIcon icon={faArrowDown} />
+					</button>
+				)}
+			</div>
+			<div className={navStyles.NavigationButtonsMobile}>
 				{currentSection !== 0 && (
 					<button
 						className={`${navStyles.NavigationButtons___top} button`}

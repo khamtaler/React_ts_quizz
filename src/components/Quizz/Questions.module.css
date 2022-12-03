@@ -21,7 +21,7 @@
 	align-items: center;
 	width: 100%;
 	background: rgb(151, 53, 231);
-	background: radial-gradient(circle, rgba(151, 53, 231, 1) 0%, rgba(32, 22, 60, 1) 100%);
+	background: radial-gradient(circle, rgba(151, 53, 231, 1) 0%, rgba(31, 11, 60, 1) 100%);
 	text-align: center;
 }
 

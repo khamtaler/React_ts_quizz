@@ -1,4 +1,3 @@
-import './App.css';
 import { useState, ChangeEvent } from 'react';
 import Quiz from './components/Quizz/Quiz';
 import { FormData } from './models/FormData';
@@ -16,7 +15,7 @@ function App() {
 			const newNumberOfQuestions = Math.round(Math.max(0, Math.min(20, Number(value))));
 			setFormData((prevForm) => ({
 				...prevForm,
-				[name]: newNumberOfQuestions,
+				[name]: Number(newNumberOfQuestions),
 			}));
 			return;
 		}
