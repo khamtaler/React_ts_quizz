@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, ReactElement } from 'react';
+import axios from 'axios';
 import { FormData } from '../../models/FormData';
 import { nanoid } from 'nanoid';
 import Question from '../Question/Question';
@@ -64,13 +65,12 @@ export default function Quiz({ numberOfQuestions, difficulty, setShowQuizz }: Pr
 	}
 
 	useEffect(() => {
-		let url = `https://opentdb.com/api.php?amount=${numberOfQuestions}&difficulty=${difficulty}`;
-		fetch(url)
-			.then((response) => response.json())
-
-			.then((data) =>
+		const url = `https://opentdb.com/api.php?amount=${numberOfQuestions}&difficulty=${difficulty}`;
+		axios
+			.get(url)
+			.then((res) =>
 				setData(
-					data.results.map((item: Questions) => {
+					res.data.results.map((item: Questions) => {
 						const { correct_answer, incorrect_answers, ...rest } = item;
 						const answers = shuffleArray(mapAnswers(item));
 						return { ...rest, id: nanoid(), answers, isPoint: null };
