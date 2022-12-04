@@ -65,16 +65,20 @@
 	}
 }
 @media only screen and (max-width: 1200px) {
+	.Navigation {
+		top: 20px;
+	}
 	.NavigationButtonsDesktop {
 		display: none !important;
 	}
 	.NavigationButtonsMobile {
 		position: fixed;
 		bottom: 50px;
+		display: flex;
+		gap: 30px;
 	}
 
 	.NavigationButtonsMobile .NavigationButtons___top {
-		margin-right: 20px;
 		background-color: #fff;
 	}
 
@@ -82,14 +86,5 @@
 	.NavigationButtonsMobile .NavigationButtons___bottom {
 		box-shadow: 0px 0px 15px 0px #fff;
 		border: none;
-	}
-
-	.NavigationButtonsMobile .NavigationButtons___top:hover,
-	.NavigationButtonsMobile .NavigationButtons___bottom:hover {
-		cursor: pointer;
-		background-color: rgba(222, 222, 222, 0);
-		color: #fff;
-		transition: all 0.4s ease-in-out;
-		box-shadow: none;
 	}
 }
