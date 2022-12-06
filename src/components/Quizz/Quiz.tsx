@@ -183,7 +183,7 @@ export default function Quiz({ numberOfQuestions, difficulty, setShowQuizz }: Pr
 
 	useEffect(() => {
 		setData((questions: DataArray) => {
-			// setPoints(0);
+			setPoints(0);
 			return questions.map((question: Data) => {
 				return {
 					...question,
