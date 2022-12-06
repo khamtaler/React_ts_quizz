@@ -64,24 +64,6 @@ export default function Quiz({ numberOfQuestions, difficulty, setShowQuizz }: Pr
 		return newArray;
 	}
 
-	useEffect(() => {
-		const url = `https://opentdb.com/api.php?amount=${numberOfQuestions}&difficulty=${difficulty}`;
-		axios
-			.get(url)
-			.then((res) =>
-				setData(
-					res.data.results.map((item: Questions) => {
-						const { correct_answer, incorrect_answers, ...rest } = item;
-						const answers = shuffleArray(mapAnswers(item));
-						return { ...rest, id: nanoid(), answers, isPoint: null };
-					})
-				)
-			)
-			.catch((err) => {
-				console.log(err);
-			});
-	}, [remake]);
-
 	const questions = data.map(({ question, id, answers }: Data) => {
 		return (
 			<Question key={id} question={question} id={id}>
@@ -107,26 +89,26 @@ export default function Quiz({ numberOfQuestions, difficulty, setShowQuizz }: Pr
 	function checkAnswers() {
 		setValidation(true);
 	}
-
-	useEffect(() => {
-		setData((questions) => {
-			return questions.map((question) => {
-				return {
-					...question,
-					isPoint: question.answers.every((answer) => {
-						if (answer.isChecked && answer.isCorrect) {
-							setPoints((points) => points + 1);
-							return true;
-						}
-						if (!answer.isChecked && !answer.isCorrect) {
-							return true;
-						}
-						return false;
-					}),
-				};
+	function chooseAnswer(questionId: string, answerId: string) {
+		setData((prevData) => {
+			return prevData.map((question) => {
+				if (questionId === question.id) {
+					return {
+						...question,
+						answers: question.answers.map((answer) => {
+							if (answer.answer === answerId) {
+								return { ...answer, isChecked: !answer.isChecked };
+							} else if (answer.answer !== answerId) {
+								return { ...answer, isChecked: false };
+							}
+							return answer;
+						}),
+					};
+				}
+				return question;
 			});
 		});
-	}, [validation]);
+	}
 
 	function checkIfPoint(question: Data): string | undefined {
 		if (question.isPoint == null) {
@@ -177,29 +159,48 @@ export default function Quiz({ numberOfQuestions, difficulty, setShowQuizz }: Pr
 				activeSection.classList.add('active');
 			}
 		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentSection]);
 
-	function chooseAnswer(questionId: string, answerId: string) {
-		setData((questions) => {
-			return questions.map((question) => {
-				if (questionId === question.id) {
-					return {
-						...question,
-						answers: question.answers.map((answer) => {
-							if (answer.answer === answerId) {
-								return { ...answer, isChecked: !answer.isChecked };
-							} else if (answer.answer !== answerId) {
-								return { ...answer, isChecked: false };
-							}
-							return answer;
-						}),
-					};
-				}
-				return question;
+	useEffect(() => {
+		const url = `https://opentdb.com/api.php?amount=${numberOfQuestions}&difficulty=${difficulty}`;
+		axios
+			.get(url)
+			.then((res) =>
+				setData(
+					res.data.results.map((item: Questions) => {
+						const { correct_answer, incorrect_answers, ...rest } = item;
+						const answers = shuffleArray(mapAnswers(item));
+						return { ...rest, id: nanoid(), answers, isPoint: null };
+					})
+				)
+			)
+			.catch((err) => {
+				console.log(err);
+			});
+	}, [remake]);
+
+	useEffect(() => {
+		setData((questions: DataArray) => {
+			// setPoints(0);
+			return questions.map((question: Data) => {
+				return {
+					...question,
+					isPoint: question.answers.every((answer) => {
+						if (answer.isChecked && answer.isCorrect) {
+							setPoints((points) => points + 1);
+							return true;
+						}
+						if (!answer.isChecked && !answer.isCorrect) {
+							return true;
+						}
+						return false;
+					}),
+				};
 			});
 		});
-	}
+	}, [validation]);
 
 	return questions.length !== 0 ? (
 		<main className={questionsStyles.Questions_main}>
